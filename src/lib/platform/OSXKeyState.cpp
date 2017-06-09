@@ -43,6 +43,8 @@ static const UInt32 s_launchpadVK = 131;
 
 static const UInt32 s_osxNumLock = 1 << 16;
 
+static const UInt32 s_yenVK = 93;
+
 struct KeyEntry {
 public:
 	KeyID				m_keyID;
@@ -114,6 +116,9 @@ static const KeyEntry	s_controlKeys[] = {
 	{ kKeySuper_R,		s_superVK }, // 61
 	{ kKeyMeta_L,		s_superVK },
 	{ kKeyMeta_R,		s_superVK }, // 61
+
+	// yen
+	{ 0x005c,		s_yenVK },
 
 	// toggle modifiers
 	{ kKeyNumLock,		s_numLockVK },
