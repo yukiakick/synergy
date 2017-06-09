@@ -1,2 +1,26 @@
 Help: http://symless.com/help/
 Wiki: https://github.com/symless/synergy/wiki/
+
+## dependencies
+
+sierra & xcode 8.3
+
+~~~
+brew tap cartr/qt4
+brew install qt@4
+~~~
+
+## build
+
+~~~
+./hm.sh conf -g2 --mac-sdk 10.12 --mac-identity test
+vi ext/toolchain/commands1.py
+~~~
+add line below qt framework
+frameworkRootDir = "/usr/local/Cellar/qt@4/4.8.7_1/Frameworks"
+~~~
+./hm.sh build
+./hm.sh dist mac
+~~~
+
+go ahead!
