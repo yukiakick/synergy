@@ -1,9 +1,77 @@
 Help: http://symless.com/help/
 Wiki: https://github.com/symless/synergy/wiki/
 
+# catalina(10.15) & xcode 11.4
+
 ## dependencies
 
-sierra & xcode 8.3
+~~~
+brew tap cartr/qt4
+brew uninstall openss@1.0 --force
+brew install qt@4
+~~~
+
+## build
+
+~~~
+./hm.sh conf -g2 --mac-sdk 10.15 --mac-identity test
+~~~
+
+if you have message under below
+
+~~~
+Traceback (most recent call last):
+  File "hm.py", line 22, in <module>
+    from toolchain import commands1
+  File "ext/toolchain/commands1.py", line 130
+    print 'Mapping command: %s' % ' -> '.join(cmd_map)
+                              ^
+SyntaxError: invalid syntax
+~~~
+
+type this and retry
+
+~~~
+pyenv local system
+~~~
+
+~~~
+vi ext/toolchain/commands1.py
+~~~
+
+insert to 785 line
+
+~~~
+frameworkRootDir = "/usr/local/Cellar/qt@4/4.8.7_6/Frameworks"
+~~~
+
+then, open build/synergy.xcodeproj and update Architectures to x86_64 for synergy project and all targets
+
+update src/gui/Makefile -mmacosx-version-min=10.5 to -mmacosx-version-min=10.15
+
+~~~
+sed -ie 's/-mmacosx-version-min=10.5/-mmacosx-version-min=10.15/' src/gui/Makefile
+~~~
+
+~~~
+./hm.sh build
+./hm.sh dist mac
+~~~
+
+go ahead!
+
+## updated
+
+copied x86_64 ssl library to ext/openssl-osx
+~~~
+cp /usr/local/opt/openssl@1.0/lib/*.a ext/openssl-osx/
+~~~
+
+
+# sierra & xcode 8.3
+
+## dependencies
+
 
 ~~~
 brew tap cartr/qt4
